@@ -9,9 +9,6 @@ export class User {
   @Column({ type: 'varchar', length: 20 })
   password: string;
 
-  @OneToOne(() => UsersProfile, usersProfile => usersProfile.loginId, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => UsersProfile, usersProfile => usersProfile.user)
   usersProfile: UsersProfile;
 }

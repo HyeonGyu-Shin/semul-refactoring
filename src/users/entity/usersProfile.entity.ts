@@ -15,7 +15,11 @@ export class UsersProfile {
   @Column({ name: 'user_type_code', type: 'varchar', length: 2 })
   userTypeCode: string;
 
-  @OneToOne(() => User, user => user.usersProfile)
+  @OneToOne(() => User, user => user.usersProfile, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   @JoinColumn({ name: 'login_id' })
-  loginId: User;
+  user: User;
 }
