@@ -14,7 +14,8 @@ export class UsersRepository {
   async findOneById(loginId: string) {
     return await this.usersRepository
       .createQueryBuilder('User')
-      .where('User.loginId = :id', { id: loginId });
+      .where('User.loginId = :id', { id: loginId })
+      .getOne();
   }
 
   async createByEm(user, manager: EntityManager) {

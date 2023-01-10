@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { UsersRepository } from '../respository/users.repository';
 import { Repository } from 'typeorm';
 import { UsersProfileRepository } from '../respository/usersProfile.repository';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 
 const MockUserRepository = () => ({
   createQueryBuilder: jest.fn().mockReturnValue({
@@ -76,7 +76,7 @@ describe('UsersService', () => {
         try {
           await usersService.signUp(signUpReqDto);
         } catch (err) {
-          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err).toBeInstanceOf(BadRequestException);
           expect(err.message).toBe('중복된 Id입니다.');
         }
       });

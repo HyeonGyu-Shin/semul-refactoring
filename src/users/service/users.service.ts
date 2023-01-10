@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { StatusCodeEnum, StatusEnum } from 'src/common/swagger/message.response.dto';
 import { DataSource } from 'typeorm';
-import { SignUpReqDto } from '../dto/signUpReq.dto';
+import { SignUpReqDto } from '../dto/signUp.request.dto';
+import { SignUpResDto } from '../dto/signUp.response.dto';
 import { User } from '../entity/users.entity';
 import { UsersProfile } from '../entity/usersProfile.entity';
 import { UsersRepository } from '../respository/users.repository';
@@ -33,7 +35,7 @@ export class UsersService {
     const { loginId } = signUpReqDto;
 
     if (await this.usersRepository.findOneById(loginId)) {
-      throw new NotFoundException('중복된 Id입니다.');
+      throw new BadRequestException('중복된 Id입니다.');
     }
 
     const user = new User();
@@ -47,6 +49,8 @@ export class UsersService {
     userProfile.userTypeCode = signUpReqDto.userTypeCode;
 
     await this.usersProfileRepository.create(userProfile);
+
+    return new SignUpResDto('Succese signUp', StatusCodeEnum.OK, StatusEnum.OK);
   }
 
   // async findOneUser(email: string) {
