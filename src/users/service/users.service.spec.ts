@@ -57,6 +57,15 @@ describe('UsersService', () => {
         phoneNumber: '010-1234-1234',
         address: '익산대로 384 대학원룸 105호',
         userTypeCode: '01',
+        toUserInstance: jest.fn().mockReturnValue({
+          loginId: 'rkrkdldkd',
+          password: '1234',
+        }),
+        toUserProfileInstance: jest.fn().mockReturnValue({
+          phoneNumber: '010-1234-1234',
+          address: '익산대로 384 대학원룸 105호',
+          userTypeCode: '01',
+        }),
       };
 
       beforeEach(async () => {
@@ -82,6 +91,8 @@ describe('UsersService', () => {
       });
 
       it('signUp() 호출시 userProfileRepo.create()를 1번 호출하고, 필요한 매개변수가 잘 넘어가는지 테스트', async () => {
+        const hashSpy = jest.spyOn(usersService, 'hashPassword');
+        hashSpy.mockResolvedValue('hashedPW');
         await usersService.signUp(signUpReqDto);
 
         expect(usersProfileRepository.create).toHaveBeenCalledWith({
@@ -90,7 +101,7 @@ describe('UsersService', () => {
           userTypeCode: '01',
           user: {
             loginId: 'rkrkdldkd',
-            password: '1234',
+            password: 'hashedPW',
           },
         });
 
