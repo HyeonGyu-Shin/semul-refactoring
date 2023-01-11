@@ -22,4 +22,13 @@ export class UsersProfile {
   })
   @JoinColumn({ name: 'login_id' })
   user: User;
+
+  static createInstance({ phoneNumber, address, userTypeCode }) {
+    const userProfile = new UsersProfile();
+    userProfile.phoneNumber = phoneNumber;
+    userProfile.address = address;
+    userProfile.userTypeCode = userTypeCode;
+
+    return userProfile;
+  }
 }

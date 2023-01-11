@@ -2,7 +2,7 @@ import {
   MessageResponseCore,
   StatusCodeEnum,
   StatusEnum,
-} from 'src/common/swagger/message.response.dto';
+} from '../../common/swagger/message.response.dto';
 import { ApiResponseProperty } from '@nestjs/swagger';
 
 export class SignUpResDto implements MessageResponseCore {

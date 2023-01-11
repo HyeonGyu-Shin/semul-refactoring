@@ -1,5 +1,7 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from '../entity/users.entity';
+import { UsersProfile } from '../entity/usersProfile.entity';
 
 export class SignUpReqDto {
   @ApiProperty({
@@ -36,4 +38,16 @@ export class SignUpReqDto {
   })
   @IsString()
   userTypeCode: string;
+
+  toUserInstance() {
+    return User.createInstance({ loginId: this.loginId, password: this.password });
+  }
+
+  toUserProfileInstance() {
+    return UsersProfile.createInstance({
+      phoneNumber: this.phoneNumber,
+      address: this.address,
+      userTypeCode: this.userTypeCode,
+    });
+  }
 }
