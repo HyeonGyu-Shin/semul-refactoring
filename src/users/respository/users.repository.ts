@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from '../entity/users.entity';
 
 @Injectable()
@@ -16,9 +16,5 @@ export class UsersRepository {
       .createQueryBuilder('User')
       .where('User.loginId = :id', { id: loginId })
       .getOne();
-  }
-
-  async createByEm(user, manager: EntityManager) {
-    return;
   }
 }
