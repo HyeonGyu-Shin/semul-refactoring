@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { SignUpReqDto } from '../dto/signUp.request.dto';
 import { UsersService } from '../service/users.service';
 import { ApiTags, ApiOperation, ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
@@ -20,5 +20,10 @@ export class UsersController {
   @Post('signup')
   signUp(@Body() signUpReqDto: SignUpReqDto) {
     return this.usersService.signUp(signUpReqDto);
+  }
+
+  @Post('login')
+  login(@Body() body: { loginId: string; password: string }) {
+    return this.usersService.login(body);
   }
 }
