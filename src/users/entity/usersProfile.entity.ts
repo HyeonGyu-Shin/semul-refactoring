@@ -12,8 +12,8 @@ export class UsersProfile {
   @Column({ type: 'varchar', length: 100 })
   address: string;
 
-  @Column({ name: 'user_type_code', type: 'varchar', length: 2 })
-  userTypeCode: string;
+  @Column({ name: 'user_type', type: 'varchar', length: 10 })
+  userType: 'USER' | 'PARTNER' | 'ADMIN';
 
   @OneToOne(() => User, user => user.usersProfile, {
     cascade: true,
@@ -23,11 +23,11 @@ export class UsersProfile {
   @JoinColumn({ name: 'login_id' })
   user: User;
 
-  static createInstance({ phoneNumber, address, userTypeCode }) {
+  static createInstance({ phoneNumber, address, userType }) {
     const userProfile = new UsersProfile();
     userProfile.phoneNumber = phoneNumber;
     userProfile.address = address;
-    userProfile.userTypeCode = userTypeCode;
+    userProfile.userType = userType;
 
     return userProfile;
   }
